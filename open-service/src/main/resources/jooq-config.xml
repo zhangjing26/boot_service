@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <jdbc>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://localhost:3306/open</url>
+        <user>root</user>
+        <password>root</password>
+    </jdbc>
+    <generator>
+        <!-- 代码生成器 -->
+        <name>org.jooq.util.JavaGenerator</name>
+        <database>
+            <!--下面这两行是为view也生成代码的关键-->
+            <!--force generating id'sfor everything in public schema, that has an 'id' field-->
+            <syntheticPrimaryKeys>public\..*\.id</syntheticPrimaryKeys>
+            <!--name for fake primary key-->
+            <overridePrimaryKeys>override_primmary_key</overridePrimaryKeys>
+
+            <name>org.jooq.util.mysql.MySQLDatabase</name>
+
+            <!--include和exclude用于控制为数据库中哪些表生成代码-->
+            <includes>.*</includes>
+            <!--<excludes></excludes>-->
+
+            <!--类型转换-->
+            <forcedTypes>
+                <forcedType>
+                    <name>BOOLEAN</name>
+                    <expression>.*\.IS_DELETED</expression>
+                    <types>.*</types>
+                </forcedType>
+                <forcedType>
+                    <name>BOOLEAN</name>
+                    <expression>.*\.IS_INNER</expression>
+                    <types>.*</types>
+                </forcedType>
+            </forcedTypes>
+
+            <!--数据库名称-->
+            <inputSchema>open</inputSchema>
+        </database>
+
+        <generate>
+            <!--生成dao和pojo-->
+            <daos>true</daos>
+            <pojos>true</pojos>
+            <!--把数据库时间类型映射到java 8时间类型-->
+            <javaTimeTypes>true</javaTimeTypes>
+            <!--<interfaces>true</interfaces>-->
+            <!--不在生成的代码中添加spring注释，比如@Repository-->
+            <springAnnotations>false</springAnnotations>
+        </generate>
+
+        <target>
+            <!--生成代码文件的包名及放置目录-->
+            <packageName>com.boot.open.generated</packageName>
+            <directory>src/main/java</directory>
+        </target>
+    </generator>
+</configuration>
